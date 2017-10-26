@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <title>Group Project</title>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Bootstrap CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- Firebase Reference -->
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <br>
+
+      <!-- Jumbotron Title -->
+      <div class="jumbotron">
+        <h1 class="text-center">Welcome To Deal Finder</h1>
+        <h3 class="text-center">"Where Good Deals are Just a Click Away"</h3>
+      </div>
+
+      <form>
+        <div class="container">
+          <div class="row">
+        <div class="form-group col-sm-6">
+          <label for="" class="search-header">Search Term</label>
+            <input type="text" class="form-control" id="user-search-term" placeholder="Name of Service or Type of Business">
+            <br>
+            <button type="button" id="search" class="btn btn-primary btn-lg">Search</button>
+        </div>
+          <div class="form-group col-sm-6">
+          <label for="formGroupExampleInput" class="location-header">Location</label>
+          <input type="text" class="form-control" id="user-location" placeholder="City Name or Street Address">        
+          </div>
+        </div>
+      </div>
+
+        
+        <div id="map" style="width:500px;height:400px;background:black">
+        </div>
+        
+        
+        </div>
+      </form>
+       
+
+
+
+
+    </div>
+  </body>
+  </html>

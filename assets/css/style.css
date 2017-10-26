@@ -1,0 +1,17 @@
+/*.container {
+	float: left;
+}*/
+body {
+	 background-image: url('../images/background.jpg');
+	background-size: cover;
+}
+
+.location-header {
+	font-size: 20px;
+	color: #00FF00;
+}
+.search-header {
+	font-size: 20px;
+	color: #00FF00;
+}
+
