@@ -13,6 +13,7 @@ $("#search").on("click", function() {
 	var results = 5;
 	var userPlace = userLocation;
 
+    $("#user-search-term").val('');
 
 	var baseUrl = "https://api.sqoot.com/v2/deals?api_key=6robp6"
 	var queryUrl = baseUrl + '&query=' + category+'&location=' + userPlace + '&per_page=' + results + '&online=' + webResults;
