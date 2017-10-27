@@ -1,26 +1,33 @@
-$("#search").on("click", function() {
+var mainDealDisplay = []; 
+var items = [];
+var userSearch;
+var userLocation;
+
+//Tranform userLocation to lat/long
+//get selected business lat/long
+
+$("#search").on("click", function(event) {
     // Prevent the page from refreshing
-    $('.deal-row').empty();
+    
 
-    event.preventDefault();
+  event.preventDefault();
+  $('.deal-row').empty();
 
-	userSearch = $("#user-search-term").val().trim();
-	userLocation = $("#user-location").val().trim();
+  userSearch = $(".user-search-term").val().trim();
+  userLocation = $(".user-location").val().trim();
 
-	console.log(userSearch);
-	console.log(userLocation);
+  console.log(userSearch);
+  console.log(userLocation);
 
-	var category = userSearch;
-	var webResults = false;
-	var results = 5;
-	var userPlace = userLocation;
+  var category = userSearch;
+  var webResults = false;
+  var results = 5;
+  var userPlace = userLocation;
 
     $("#user-search-term").val('');
 
-	var baseUrl = "https://api.sqoot.com/v2/deals?api_key=6robp6"
-	var queryUrl = baseUrl + '&query='+ category + '&location=' + userPlace + '&per_page=' + results + '&online=' + webResults;
-    var mainDealDisplay = []; 
-    var items = [];
+  var baseUrl = "https://api.sqoot.com/v2/deals?api_key=6robp6"
+  var queryUrl = baseUrl + '&query='+ category + '&location=' + userPlace + '&per_page=' + results + '&online=' + webResults;
 
 
     $.ajax({
@@ -75,6 +82,12 @@ $("#search").on("click", function() {
               $('#main-deal-table').append(tableRow);
 
         }  
+
+        initMap(items);
   
     })
+});
+
+$( document ).ready(function() {
+    initMap(items);
 });
