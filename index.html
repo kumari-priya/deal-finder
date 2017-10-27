@@ -52,7 +52,8 @@
                 <br>
                 <div class="form-group">
                   <label for="formGroupExampleInput" class="location-header">Location</label>
-                  <input type="text" class="form-control" id="user-location" placeholder="City Name or Street Address">        
+                  <input type="text" class="form-control" id="user-location" placeholder="City Name or Street Address">   
+                  <br><br>     
                   <button type="button" id="search" class="btn btn-primary btn-lg">Search</button>
                 </div>
               </form>
@@ -69,11 +70,12 @@
         <div class="panel panel-primary">
           <div class="panel-body">
    
-           <table class = "table" id="deals">
+           <table class = "table" id="main-deal-table">
               <tr>
-                 <th>Merchant</th>
-                 <th>Rating</th>
-                 <th>Deal</th>
+                 <th class="table-header">Merchant</th>
+                 <th class="table-header">Deal</th>
+                 <th class="table-header">Price</th>
+                 <th class="table-header">Discount Amount</th>
               </tr>
             </table>    
         </div>
