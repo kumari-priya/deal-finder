@@ -6,14 +6,6 @@ body {
 	background-size: cover;
 }
 
-.location-header {
-	font-size: 20px;
-	color: #00FF00;
-}
-.search-header {
-	font-size: 20px;
-	color: #00FF00;
-}
 
 .container {
 	margin-left: 40px !important;
@@ -28,4 +20,12 @@ body {
 
 .grey {
 	background: darkgrey !important;
+}
+
+.table-header {
+	font-weight: bold !important;
+}
+
+.centerText {
+	text-align: center;
 }
