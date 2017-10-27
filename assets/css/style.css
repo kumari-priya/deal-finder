@@ -1,25 +1,16 @@
-/*.container {
-	float: left;
-}*/
+
 body {
 	background-image: url('../img/round.png');
 	background-size: cover;
 }
 
-
-.container {
-	margin-left: 40px !important;
-	margin-right: 40px !important;	
-}
-
 .jumbotron {
-	background: darkgrey !important; 
 	text-align: center;
 	color: white !important;
 }
 
 .grey {
-	background: darkgrey !important;
+	background: #828D99 !important;
 }
 
 .table-header {
@@ -28,4 +19,12 @@ body {
 
 .centerText {
 	text-align: center;
+}
+
+.leftpad {
+	padding-left: 50px;
+}
+
+#search{
+	color: white !important;
 }

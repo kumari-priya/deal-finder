@@ -37,13 +37,8 @@ $("#search").on("click", function(event) {
         }).done(function(response) { 
         
         var length = response.deals.length;  
-
-        // console.log("Lenght: ", length);
-
        
         for (var i = 0; i < length; i++) {
-
-
 
             var merchantName = response.deals[i].deal.merchant.name;
             var long = response.deals[i].deal.merchant.longitude;
@@ -65,21 +60,19 @@ $("#search").on("click", function(event) {
             var state = response.deals[i].deal.merchant.region;
             var merchantUrl = response.deals[i].deal.merchant.url;   
 
-              var tableRow = $('<tr class="deal-row">');
+            var tableRow = $('<tr class="deal-row">');
 
-              var tableData1 = $('<td>').text(merchantName);
-              var tableData2 = $('<td>').text(title);
-              var tableData3 = $('<td class="centerText">').text(price);
-              var tableData4 = $('<td class="centerText">').text(discount);
-           
+            var tableData1 = $('<td>').text(merchantName);
+            var tableData2 = $('<td>').text(title);
+            var tableData3 = $('<td class="centerText">').text(price);
+            var tableData4 = $('<td class="centerText">').text(discount);  
 
-              tableRow.append(tableData1);
-              tableRow.append(tableData2);
-              tableRow.append(tableData3);
-              tableRow.append(tableData4);
+            tableRow.append(tableData1);
+            tableRow.append(tableData2);
+            tableRow.append(tableData3);
+            tableRow.append(tableData4);
              
-
-              $('#main-deal-table').append(tableRow);
+            $('.main-deal-table').append(tableRow);
 
         }  
 
