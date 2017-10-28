@@ -1,6 +1,7 @@
 var mainDealDisplay = []; 
 var items = [];
-var userMarker = [];
+var userlat;
+var userlng;
 var userSearch;
 var userLocation;
 var length;
@@ -93,18 +94,20 @@ $("#search").on("click", function(event) {
           var tableData1 = $('<td>').text(merchantName);
           var tableData2 = $('<td>').text(title);
           var tableData3 = $('<td class="centerText">').text(price);
-          var tableData4 = $('<td class="centerText">').text(discount);  
+          var tableData4 = $('<td class="centerText">').text(discount+price);  
+          var tableData5 = $('<td class="centerText">').text(discount);  
 
           tableRow.append(tableData1);
           tableRow.append(tableData2);
           tableRow.append(tableData3);
           tableRow.append(tableData4);
+          tableRow.append(tableData5);
            
           $('.main-deal-table').append(tableRow);
 
       }  
 
-        initMap(items);
+        initMap(items,userlat,userlng);
   
     })
 });
