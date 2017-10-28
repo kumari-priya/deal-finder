@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <title>Group Project</title>
 
-    <!-- jQuery -->
-    
+    <!-- Roboto! --> 
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
 
     <!-- Bootstrap CDN-->
      <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
@@ -43,21 +43,21 @@
           <div class="panel-body">
 
             <div class="col-md-6">
+            
 
               <form>
 
                 <div class="form-group">
                   <label for="validationDefault01">Search Term</label>
                   <input type="text" class="form-control user-search-term" id="validationDefault01" placeholder="Name of Service or Type of Business" required>
-                  <div class="invalid-feedback">Please specify a search term.</div>
                 </div>
 
                 <br>
 
-                <div class="form-group">
+                <div class="form-group" id="locationField">
                   <label for="validationDefault02">Location</label>
-                  <input type="text" class="form-control user-location" id="validationDefault02" placeholder="City Name or Street Address" required>
-                  <div class="invalid-feedback">Please select location.</div>
+                  <input class="form-control user-location" id="autocomplete" placeholder="Street Address or City Name" type="text">
+                  <!-- onFocus="geolocate()" should be put to the left of the type="text" in the user-location input--> 
                   <br>      
                   
                   <button class="btn grey" type="submit" id="search">Search</button>
@@ -82,7 +82,7 @@
               <tr>
                  <th class="table-header">Merchant</th>
                  <th class="table-header">Deal</th>
-                 <th class="table-header">Price</th>
+                 <th class="table-header">Deal Price</th>
                  <th class="table-header">Discount Amount</th>
               </tr>
             </table> 
@@ -95,11 +95,14 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <script type="text/javascript" src="assets/js/googleSearch.js"></script> -->
+
     <script type="text/javascript" src="assets/js/sqoot.js"></script>
     <script type="text/javascript" src="assets/js/googleMaps.js"></script>
+
     <script src ="assets/js/googleMaps.js"></script>
-    <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlo315C1BsvjDMw2FtAzOxvHz6YoBXXOA">
-    </script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlo315C1BsvjDMw2FtAzOxvHz6YoBXXOA"></script>
   </body>
   </html>

@@ -2,6 +2,7 @@
 body {
 	background-image: url('../img/round.png');
 	background-size: cover;
+	font-family: Roboto;
 }
 
 .jumbotron {
