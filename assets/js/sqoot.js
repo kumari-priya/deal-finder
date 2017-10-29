@@ -12,7 +12,7 @@ var length;
 $("#search").on("click", function(event) {
     // Prevent the page from refreshing
   event.preventDefault();
-  $('.deal-row').empty();
+  $('#deal-table-panel').remove();
     
   //Get items from input form and assign them to global variables
   userSearch = $(".user-search-term").val().trim();
@@ -28,6 +28,36 @@ $("#search").on("click", function(event) {
   //Set the UI input fields back to blank for the user
   $(".user-search-term").val('');
   $(".user-location").val('');
+
+
+  //Start building the elements inside the deal-table-row, including panel, and table that will contain the deal data
+  var boostrapTablePanel = $('<div class="panel panel-default" id="deal-table-panel">');
+  var boostrapTablePanelBody = $('<div class="panel-body" id="deal-table-panel-body">');
+  var tableWhole = $('<table class="table" id="main-deal-table">')
+  var tableHeaderRow = $('<tr id="table-header-row">')
+  
+  //Build the table header
+  var tableHeader1 = $('<th>').text('Business Name');
+  var tableHeader2 = $('<th>').text('Deal');
+  var tableHeader3 = $('<th class="centerText">').text('Deal Price');
+  var tableHeader4 = $('<th class="centerText">').text('Original Value');  
+  var tableHeader5 = $('<th class="centerText">').text('Discount');
+
+  //Append the table panel to the deal-table-row that is on the index page to hold the table
+  $('#deal-table-row').append(boostrapTablePanel);
+  //Append the table panel body to the panel that was just created and appended
+  $('#deal-table-panel').append(boostrapTablePanelBody);
+  //Append the table to the panel body that was just created and appended
+  $('#deal-table-panel-body').append(tableWhole);
+
+  //Fill out the header row with the relevant headers, then append the header to the table
+  tableHeaderRow.append(tableHeader1);
+  tableHeaderRow.append(tableHeader2);
+  tableHeaderRow.append(tableHeader3);
+  tableHeaderRow.append(tableHeader4);
+  tableHeaderRow.append(tableHeader5);
+  $('#main-deal-table').append(tableHeaderRow);
+
 
   //Use the userLocation to retrieve the latitude and longitude where the user marker should be placed
   //This will be retrieved using the google geolocation API
@@ -65,7 +95,8 @@ $("#search").on("click", function(event) {
       }).done(function(response) { 
       
       length = response.deals.length;  
-     
+
+
       for (var i = 0; i < length; i++) {
 
           var merchantName = response.deals[i].deal.merchant.name;
@@ -103,7 +134,7 @@ $("#search").on("click", function(event) {
           tableRow.append(tableData4);
           tableRow.append(tableData5);
            
-          $('.main-deal-table').append(tableRow);
+          $('#main-deal-table').append(tableRow);
 
       }  
 
