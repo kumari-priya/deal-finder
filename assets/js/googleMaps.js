@@ -1,33 +1,30 @@
-var start = {lat: 37.785, lng: -122.395};
+var userLatLang;
 function initMap(items) {
-    var myLatLng = {lat: 37.785, lng: -122.395};
-    var Tname;
-    if(items.length < 1){
-    }
-    else{
-      Tname = items;
-    }
+    userLatLang = {lat: userlat, lng: userlng};
+  console.log(userLatLang)
   console.log(items)
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 11,
-      center: myLatLng
+      center: userLatLang
     });
-
-  console.log(items);
-  if(Tname.length>0){
-    for (var j = 0; j < Tname.length; j++) {
-      console.log(Tname[j]);
-      var bizLatLang = {lat : Tname[j][2], lng: Tname[j][1]}
+  if(items.length>0){
+    for (var j = 0; j < items.length; j++) {
+      console.log(items[j]);
+      var bizLatLang = {lat : items[j][2], lng: items[j][1]}
       console.log(bizLatLang);
 
       var marker = new google.maps.Marker({
         position: bizLatLang,
         map: map,
-        title: Tname[j][0],
+        title: items[j][0],
       });
       // addMessage(marker, Tname[j][0]);
       showDirection(marker);
     }
+      $('#map').show();
+  }
+  else{
+      $('#map').hide();
   }
 }
 
@@ -46,32 +43,32 @@ function initMap(items) {
 
   function showDirection(marker){
     marker.addListener('click', function() {
-      initDirectionMap(start,marker.position,'DRIVING')
+      initDirectionMap(userLatLang,marker.position,'DRIVING')
     });
   }
 
   // ==========================Directions =====================
 
-  function initDirectionMap(start,end,mode) {
+  function initDirectionMap(userLatLang,bizLatLang,mode) {
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var directionsService = new google.maps.DirectionsService;
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 14,
-      center: start
+      center: userLatLang
     });
     directionsDisplay.setMap(map);
 
-    calculateAndDisplayRoute(directionsService,directionsDisplay,start,end,mode);
+    calculateAndDisplayRoute(directionsService,directionsDisplay,userLatLang,bizLatLang,mode);
     // document.getElementById('mode').addEventListener('change', function() {
     //   calculateAndDisplayRoute(directionsService, directionsDisplay);
     // });
   }
 
-  function calculateAndDisplayRoute(directionsService, directionsDisplay,start,end,selectedMode) {
+  function calculateAndDisplayRoute(directionsService, directionsDisplay,userLatLang,bizLatLang,selectedMode) {
     // var selectedMode = document.getElementById('mode').value;
     directionsService.route({
-      origin: start,
-      destination: end,
+      origin: userLatLang,
+      destination: bizLatLang,
       travelMode: selectedMode
     }, function(response, status) {
       if (status == 'OK') {
