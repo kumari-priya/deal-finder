@@ -101,6 +101,11 @@ $("#search").on("click", function(event) {
           var long = response.deals[i].deal.merchant.longitude;
           var lat = response.deals[i].deal.merchant.latitude;
 
+          console.log("Lng");
+          console.log(long);
+          console.log("Lat");
+          console.log(lat);
+
           items.push([merchantName, long, lat]);
           
           console.log(items);
@@ -127,7 +132,9 @@ $("#search").on("click", function(event) {
 
           var tableRow = $('<tr class="deal-row">');
           
-          var tableData1 = $('<td class = details data-name="'+merchantName+'">').html('<a>'+merchantName+'</a>');
+
+          var tableData1 = $('<td class="details" data-name="'+merchantName+'" data-lng="'+long+'" data-lat="'+lat+'" data-bizaddy="'+address+'">').html('<a>'+merchantName+'</a>');
+
           var tableData2 = $('<td>').text(title);
           var tableData3 = $('<td class="centerText">').text(price);
           var tableData4 = $('<td class="centerText">').text(discount+price);
@@ -149,6 +156,7 @@ $("#search").on("click", function(event) {
     })
 
       $(document).on("click", ".details", function(eventTwo){
+
         $('#secondRow').empty();
         $("#firstBox").hide(); 
         $("#secondBox").show(); 
@@ -165,16 +173,28 @@ $("#search").on("click", function(event) {
         console.log("===========", theItem)
 
         var lineTwo = $("<p>").text("Address: " + theItem[0] + theItem[1] + theItem[2] + theItem[3]); 
-        // var lineThree = $("<p>").text(theItem[1] + theItem[2] + theItem[3]); 
         var lineFour = $("<p>").text(theItem[4]);
         var lineFive = $("<p>").text(theItem[5]);  
 
         $("#secondRow").append(lineOne);
         $("#secondRow").append(lineTwo);
-        // $("#secondRow").append(lineThree);
         $("#secondRow").append(lineFour);
         $("#secondRow").append(lineFive); 
         
+
+        var merchant  = $(this).attr("data-name");
+        var businessLat  = $(this).attr("data-lat");
+        var businessLng  = $(this).attr("data-lng");
+        var businessAddress = $(this).attr("data-bizaddy")
+
+        var userPosition = {lat: userlat, lng: userlng};
+        var businessLatLng = {lat: parseFloat(businessLat), lng: parseFloat(businessLng)};
+        console.log("User Position");
+        console.log(userPosition);
+        console.log("Business Address");
+        console.log(businessLatLng);
+        initDirectionMap(userPosition,businessLatLng,'DRIVING')
+
 
       });
 });
