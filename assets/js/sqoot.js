@@ -2,8 +2,6 @@ var mainDealDisplay = [];
 var items = [], info= [];
 var userlat, userlng, userSearch, userLocation, length, address; 
 
-//Tranform userLocation to lat/long
-//get selected business lat/long
 
 $("#search").on("click", function(event) {
     // Prevent the page from refreshing
@@ -92,10 +90,10 @@ $("#search").on("click", function(event) {
       }).done(function(response) {
       length = response.deals.length;
       // Priya- empty the array
+      items = [];
 
 
       for (var i = 0; i < length; i++) {
-        items = [];
 
           var merchantName = response.deals[i].deal.merchant.name;
           var long = response.deals[i].deal.merchant.longitude;
@@ -110,6 +108,8 @@ $("#search").on("click", function(event) {
           
           console.log(items);
 
+          var dealIdentifier = response.deals[i].deal.id;
+          var merchantIdentifier = response.deals[i].deal.merchant.id;
           var discount = response.deals[i].deal.discount_amount;
           var discountPercent = response.deals[i].deal.discount_percentage;
           var expires = response.deals[i].deal.expires_at;
@@ -133,8 +133,7 @@ $("#search").on("click", function(event) {
           var tableRow = $('<tr class="deal-row">');
           
 
-          var tableData1 = $('<td class="details" data-name="'+merchantName+'" data-lng="'+long+'" data-lat="'+lat+'" data-bizaddy="'+address+'">').html('<a>'+merchantName+'</a>');
-
+          var tableData1 = $('<td class="details" data-mid="'+merchantIdentifier+'" data-did="'+dealIdentifier+'" data-name="'+merchantName+'" data-lng="'+long+'" data-lat="'+lat+'" data-bizaddy="'+address+'">').html('<a>'+merchantName+'</a>');          var tableData2 = $('<td>').text(title);
           var tableData2 = $('<td>').text(title);
           var tableData3 = $('<td class="centerText">').text(price);
           var tableData4 = $('<td class="centerText">').text(discount+price);
@@ -162,7 +161,6 @@ $("#search").on("click", function(event) {
         $("#secondBox").show(); 
 
         var name  = $(this).attr("data-name");
-        // console.log(address); 
         var lineOne = $("<h1>").text(name);
         var theItem
         info.forEach(item => {
@@ -172,27 +170,27 @@ $("#search").on("click", function(event) {
         }); 
         console.log("===========", theItem)
 
-        var lineTwo = $("<p>").text("Address: " + theItem[0] + theItem[1] + theItem[2] + theItem[3]); 
-        var lineFour = $("<p>").text(theItem[4]);
-        var lineFive = $("<p>").text(theItem[5]);  
+        var lineTwo = $("<p class='addressDisplay'>").text("a: " + theItem[0] + theItem[1] + theItem[2] + theItem[3]); 
+        var lineThree = $("<p class='phoneDisplay'>").text("p: " + theItem[4]);
+        var lineFour = $("<p class='dealDisplay'>").text(theItem[5]);  
 
-        $("#secondRow").append(lineOne);
         $("#secondRow").append(lineTwo);
-        $("#secondRow").append(lineFour);
-        $("#secondRow").append(lineFive); 
+        $("#secondRow").append(lineThree);
+        $("#secondRow").append(lineFour); 
         
 
         var merchant  = $(this).attr("data-name");
         var businessLat  = $(this).attr("data-lat");
         var businessLng  = $(this).attr("data-lng");
         var businessAddress = $(this).attr("data-bizaddy")
-
+        var dealId = $(this).attr("data-did");
+        var merchantId = $(this).attr("data-mid");
         var userPosition = {lat: userlat, lng: userlng};
         var businessLatLng = {lat: parseFloat(businessLat), lng: parseFloat(businessLng)};
-        console.log("User Position");
-        console.log(userPosition);
-        console.log("Business Address");
-        console.log(businessLatLng);
+
+        $('#firstStar').attr("data-mid",merchantId);
+        $('#firstStar').attr("data-did", dealId);
+
         initDirectionMap(userPosition,businessLatLng,'DRIVING')
 
 
