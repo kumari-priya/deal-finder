@@ -1,10 +1,6 @@
 var mainDealDisplay = [];
-var items = [];
-var userlat;
-var userlng;
-var userSearch;
-var userLocation;
-var length;
+var items = [], info= [];
+var userlat, userlng, userSearch, userLocation, length, address; 
 
 //Tranform userLocation to lat/long
 //get selected business lat/long
@@ -32,8 +28,8 @@ $("#search").on("click", function(event) {
 
 
   //Start building the elements inside the deal-table-row, including panel, and table that will contain the deal data
-  var boostrapTablePanel = $('<div class="panel panel-default" id="deal-table-panel">');
-  var boostrapTablePanelBody = $('<div class="panel-body" id="deal-table-panel-body">');
+  var boostrapTablePanel     = $('<div class="panel panel-default" id="deal-table-panel">'),
+      boostrapTablePanelBody = $('<div class="panel-body" id="deal-table-panel-body">');
   var tableWhole = $('<table class="table" id="main-deal-table">')
   var tableHeaderRow = $('<tr id="table-header-row">')
   
@@ -87,8 +83,7 @@ $("#search").on("click", function(event) {
   //This will be retrieved using the sqoot API
   var baseUrl = "https://api.sqoot.com/v2/deals?api_key=6robp6"
   var queryUrl = baseUrl + '&query='+ userSearch + '&location=' + userLocation + '&per_page=' + results + '&online=' + webResults;
-
-
+ 
   $.ajax({
       url: queryUrl,
       method: "GET",
@@ -97,16 +92,17 @@ $("#search").on("click", function(event) {
       }).done(function(response) {
       length = response.deals.length;
       // Priya- empty the array
-      items = [];
 
 
       for (var i = 0; i < length; i++) {
+        items = [];
 
           var merchantName = response.deals[i].deal.merchant.name;
           var long = response.deals[i].deal.merchant.longitude;
           var lat = response.deals[i].deal.merchant.latitude;
 
           items.push([merchantName, long, lat]);
+          
           console.log(items);
 
           var discount = response.deals[i].deal.discount_amount;
@@ -121,15 +117,22 @@ $("#search").on("click", function(event) {
           var phone = response.deals[i].deal.merchant.phone_number;
           var city = response.deals[i].deal.merchant.locality;
           var state = response.deals[i].deal.merchant.region;
+          var zipcode = response.deals[i].deal.merchant.postal_code;
           var merchantUrl = response.deals[i].deal.merchant.url;
+
+          
+          info.push([address, city, state, zipcode, phone, shortTitle, merchantName]); 
+          console.log(info); 
+
 
           var tableRow = $('<tr class="deal-row">');
           
-          var tableData1 = $('<td class="details" data-name="'+merchantName+'">').html('<a>'+merchantName+'</a>');
+          var tableData1 = $('<td class = details data-name="'+merchantName+'">').html('<a>'+merchantName+'</a>');
           var tableData2 = $('<td>').text(title);
           var tableData3 = $('<td class="centerText">').text(price);
           var tableData4 = $('<td class="centerText">').text(discount+price);
           var tableData5 = $('<td class="centerText">').text(discount);
+        
 
           tableRow.append(tableData1);
           tableRow.append(tableData2);
@@ -146,21 +149,61 @@ $("#search").on("click", function(event) {
     })
 
       $(document).on("click", ".details", function(eventTwo){
-        $('secondBox').empty();
+        $('#secondRow').empty();
         $("#firstBox").hide(); 
         $("#secondBox").show(); 
 
-        var address  = $(this).attr("data-name");
-        console.log(address); 
-        var lineOne = $("<h1>").text(address); 
+        var name  = $(this).attr("data-name");
+        // console.log(address); 
+        var lineOne = $("<h1>").text(name);
+        var theItem
+        info.forEach(item => {
+          if(item.indexOf(name) > 0){
+            theItem = item
+          }
+        }); 
+        console.log("===========", theItem)
 
-        $("#secondBox").append(lineOne);
+        var lineTwo = $("<p>").text("Address: " + theItem[0] + theItem[1] + theItem[2] + theItem[3]); 
+        // var lineThree = $("<p>").text(theItem[1] + theItem[2] + theItem[3]); 
+        var lineFour = $("<p>").text(theItem[4]);
+        var lineFive = $("<p>").text(theItem[5]);  
+
+        $("#secondRow").append(lineOne);
+        $("#secondRow").append(lineTwo);
+        // $("#secondRow").append(lineThree);
+        $("#secondRow").append(lineFour);
+        $("#secondRow").append(lineFive); 
+        
 
       });
+});
+
+$("#goHome").on("click", function(eventThree) {
+
+  $("#secondBox").hide(); 
+  $("#firstBox").show();  
+}); 
+
+$("#firstStar").on("click", function(eventFour) {
+  eventFour.preventDefault(); 
+  $("#firstStar").hide(); 
+  $("#secondStar").show(); 
+});
+
+$("#secondStar").on("click", function(eventFive) {
+  eventFive.preventDefault(); 
+  $("#firstStar").show(); 
+  $("#secondStar").hide(); 
 });
 
 $( document ).ready(function() {
   $('#map').hide();
   $("#secondBox").hide(); 
   //initMap(items);
+  $("#secondStar").hide(); 
 });
+
+
+
+
