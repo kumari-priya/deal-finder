@@ -124,8 +124,8 @@ $("#search").on("click", function(event) {
           var merchantUrl = response.deals[i].deal.merchant.url;
 
           var tableRow = $('<tr class="deal-row">');
-
-          var tableData1 = $('<td>').text(merchantName);
+          
+          var tableData1 = $('<td class="details" data-name="'+merchantName+'">').html('<a>'+merchantName+'</a>');
           var tableData2 = $('<td>').text(title);
           var tableData3 = $('<td class="centerText">').text(price);
           var tableData4 = $('<td class="centerText">').text(discount+price);
@@ -144,9 +144,23 @@ $("#search").on("click", function(event) {
         initMap(items);
 
     })
+
+      $(document).on("click", ".details", function(eventTwo){
+        $('secondBox').empty();
+        $("#firstBox").hide(); 
+        $("#secondBox").show(); 
+
+        var address  = $(this).attr("data-name");
+        console.log(address); 
+        var lineOne = $("<h1>").text(address); 
+
+        $("#secondBox").append(lineOne);
+
+      });
 });
 
 $( document ).ready(function() {
   $('#map').hide();
+  $("#secondBox").hide(); 
   //initMap(items);
 });
