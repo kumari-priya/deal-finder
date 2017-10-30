@@ -1,12 +1,14 @@
 var userLatLang;
 function initMap(items) {
-    userLatLang = {lat: userlat, lng: userlng};
+  userLatLang = {lat: userlat, lng: userlng};
   console.log(userLatLang)
   console.log(items)
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 11,
-      center: userLatLang
-    });
+  
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 11,
+    center: userLatLang
+  });
+  
   if(items.length>0){
     for (var j = 0; j < items.length; j++) {
       console.log(items[j]);
