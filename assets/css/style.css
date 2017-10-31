@@ -29,3 +29,8 @@ body {
 #search{
 	color: white !important;
 }
+
+.glyphicon {
+    font-size: 25px !important;
+    top: 8px;
+}
