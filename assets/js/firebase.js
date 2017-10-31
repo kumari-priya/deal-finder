@@ -47,11 +47,12 @@ $("#firstStar").on("click", function() {
   deal = $(this).attr("data-did");
   merchant = $(this).attr("data-mid");
   count = 1;
+  console.log(deal,merchant);
+
 
 // Insert/Update data in firebase
     database.ref('favs/' + deal).set({
       merchantId: merchant,
       favCount: count
     });
-
 });

@@ -1,6 +1,6 @@
 var mainDealDisplay = [];
-var items = [], info= [], favItems =[] ;
-var userlat, userlng, userSearch, userLocation, length, address;
+var items = [], info= [];
+var userlat, userlng, userSearch, userLocation, length, address; 
 
 
 $("form").on("submit", function(event) {
@@ -8,7 +8,7 @@ $("form").on("submit", function(event) {
   event.preventDefault();
 
   $('#deal-table-panel').remove();
-
+    
   //Get items from input form and assign them to global variables
   userSearch = $(".user-search-term").val().trim();
   userLocation = $(".user-location").val().trim();
@@ -30,14 +30,13 @@ $("form").on("submit", function(event) {
       boostrapTablePanelBody = $('<div class="panel-body" id="deal-table-panel-body">');
   var tableWhole = $('<table class="table table-striped" id="main-deal-table"><tbody></tbody></table>')
   var tableHeaderRow = $('<tr id="table-header-row">')
-
+  
   //Build the table header
-  var tableHeader0 = $('<th>');
-  var tableHeader1 = $('<th>').text('Business Name');
+  var tableHeader0 = $('<th>').text('Favorite');
   var tableHeader1 = $('<th>').text('Business Name');
   var tableHeader2 = $('<th>').text('Deal');
   var tableHeader3 = $('<th class="centerText">').text('Deal Price');
-  var tableHeader4 = $('<th class="centerText">').text('Original Value');
+  var tableHeader4 = $('<th class="centerText">').text('Original Value');  
   var tableHeader5 = $('<th class="centerText">').text('Discount');
 
   //Append the table panel to the deal-table-row that is on the index page to hold the table
@@ -84,79 +83,65 @@ $("form").on("submit", function(event) {
   //This will be retrieved using the sqoot API
   var baseUrl = "https://api.sqoot.com/v2/deals?api_key=6robp6"
   var queryUrl = baseUrl + '&query='+ userSearch + '&location=' + userLocation + '&per_page=' + results + '&online=' + webResults;
-
+ 
   $.ajax({
       url: queryUrl,
       method: "GET",
       dataType: "jsonp"
-
+   
       }).done(function(response) {
       length = response.deals.length;
       console.log(response);
       items = [];
-      console.log("favItems");
-      console.log(favItems);
+
 
       for (var i = 0; i < length; i++) {
 
-          var dealResponse = response.deals[i].deal;
-
-          var merchantName = dealResponse.merchant.name;
-          var long = dealResponse.merchant.longitude;
-          var lat = dealResponse.merchant.latitude;
-
+          var merchantName = response.deals[i].deal.merchant.name;
+          var long = response.deals[i].deal.merchant.longitude;
+          var lat = response.deals[i].deal.merchant.latitude;
+          
           items.push([merchantName, long, lat]);
+          
+          var dealIdentifier = response.deals[i].deal.id;
+          var merchantIdentifier = response.deals[i].deal.merchant.id;
+          var discount = response.deals[i].deal.discount_amount;
+          var discountPercent = response.deals[i].deal.discount_percentage;
+          var expires = response.deals[i].deal.expires_at;
+          var finePrint = response.deals[i].deal.fine_print;
+          var image = response.deals[i].deal.image_url;
+          var shortTitle = response.deals[i].deal.short_title;
+          var title = response.deals[i].deal.title;
+          var price = response.deals[i].deal.price;
+          var address = response.deals[i].deal.merchant.address;
+          var phone = response.deals[i].deal.merchant.phone_number;
+          var city = response.deals[i].deal.merchant.locality;
+          var state = response.deals[i].deal.merchant.region;
+          var zipcode = response.deals[i].deal.merchant.postal_code;
+          var merchantUrl = response.deals[i].deal.merchant.url;
+          var dealDescription = response.deals[i].deal.description;
 
-          var dealIdentifier = dealResponse.id;
-          var merchantIdentifier = dealResponse.merchant.id;
-          var discount = dealResponse.discount_amount;
-          var discountPercent = dealResponse.discount_percentage;
-          var expires = dealResponse.expires_at;
-          var finePrint = dealResponse.fine_print;
-          var image = dealResponse.image_url;
-          var shortTitle = dealResponse.short_title;
-          var title = dealResponse.title;
-          var price = dealResponse.price;
-          var address = dealResponse.merchant.address;
-          var phone = dealResponse.merchant.phone_number;
-          var city = dealResponse.merchant.locality;
-          var state = dealResponse.merchant.region;
-          var zipcode = dealResponse.merchant.postal_code;
-          var merchantUrl = dealResponse.merchant.url;
-          var dealDescription = dealResponse.description;
-
-
-          info.push([address, city, state, zipcode, phone, shortTitle, merchantName, merchantUrl, image, expires, finePrint, price, title, dealDescription]);
+          
+          info.push([address, city, state, zipcode, phone, shortTitle, merchantName, merchantUrl, image, expires, finePrint, price, title, dealDescription]); 
           console.log("Deal Info:")
-          console.log(info);
+          console.log(info); 
 
-          // Check favourite
-          console.log("dealIdentifier" + dealIdentifier);
-          if(checkFev(favItems,dealIdentifier)){
-            var tableData0 = $('<td><span class="glyphicon glyphicon-star-empty"></span></td>');
-          }
-          else{
-            //hide star
-            var tableData0 = $('<td></td>');
-          }
 
           var tableRow = $('<tr class="deal-row">');
 
           var tableData1 = $('<td class="details" data-mid="'+merchantIdentifier+'" data-did="'+dealIdentifier+'" data-name="'+merchantName+'" data-lng="'+long+'" data-lat="'+lat+'" data-bizaddy="'+address+'">').html('<a>'+merchantName+'</a>');          var tableData2 = $('<td>').text(title);
           var tableData2 = $('<td>').text(title);
-
           var tableData3 = $('<td class="centerText">').text('$' + parseFloat(price,10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
           var tableData4 = $('<td class="centerText">').text('$' + parseFloat((price+discount),10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
           var tableData5 = $('<td class="centerText">').text('$' + parseFloat(discount,10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
-
-
-          tableRow.append(tableData0)
+        
+          tableRow.append('place');
           tableRow.append(tableData1);
           tableRow.append(tableData2);
           tableRow.append(tableData3);
           tableRow.append(tableData4);
           tableRow.append(tableData5);
-
+        
           $('#main-deal-table').append(tableRow);
 
 
@@ -166,47 +151,60 @@ $("form").on("submit", function(event) {
     })
 
       $(document).on("click", ".details", function(eventTwo){
+        $(".mainDealDiv").empty();
+        $("#secondBox").empty();
 
-        $('#secondRow').empty();
-        $("#firstBox").hide();
-        $("#secondBox").show();
+        $("#firstBox").hide(); 
+        $("#secondBox").show(); 
 
-        var name  = $(this).attr("data-name");
+        var bizName  = $(this).attr("data-name");
 
-        var lineOne = $("<h1>").text(name);
         var theItem
+
         info.forEach(item => {
-          if(item.indexOf(name) > 0){
+          if(item.indexOf(bizName) > 0){
             theItem = item
           }
-        });
+        }); 
 
         console.log("List of Retrieved Elements:")
         console.log(theItem);
 
+        var divContainer = $("<div class='mainDealDiv'>");
+        var divHeader = $("<div class='dealHeader'>");
+        var divAddress = $("<div class='addressDisplay'>");
 
-        var lineTwo = $("<div class='addressDisplay'>")
+        var divShortTitle = $("<div class='shortTitleDisplay'>");
+        var divLongTitle = $("<div class='longTitleDisplay'>");
+        var divDealDescription = $("<div class='dealDescriptionDisplay'>");
+        var divFinePrint = $("<div class='finePrintDisplay'>");
 
-        var lineTwoA = $("<span>").text(theItem[0]);
-        var lineTwoB = $("<br>")
-        var lineTwoC = $("<span>").text(theItem[1] + ', ' + theItem[2] + ' ' + theItem[3]);
+        var headerMerchant = $("<h2>").text(bizName);
+        var favHeartEmpty = $("<span class='glyphicon glyphicon-heart-empty' id='empty-heart'>")
+        var favHeartFull = $("<span class='glyphicon glyphicon-heart' id='full-heart'>")
+        
 
-        lineTwo.append(lineTwoA);
-        lineTwo.append(lineTwoB);
-        lineTwo.append(lineTwoC);
-
-
-        var lineThree = $("<p class='phoneDisplay'>").text(theItem[4]);
-        var lineFour = $("<p class='dealDisplay'>").text(theItem[5]);
-        var lineFive = $("<p class='dealDisplay'>").text(theItem[5]);
-        var lineDealDescription = $("<p class='dealDisplay'>").text(theItem[5]);
-        var lineFour = $("<p class='dealDisplay'>").text(theItem[5]);
-
-        $("#secondRow").append(lineTwo);
-        $("#secondRow").append(lineThree);
-        $("#secondRow").append(lineFour);
+        var lineAddress1 = $("<span>").text(theItem[0]); 
+        var lineAddress2 = $("<br>")
+        var lineAddress3 = $("<span>").text(theItem[1] + ', ' + theItem[2] + ' ' + theItem[3]);    
+        var linePhone = $("<p class='phoneDisplay'>").text(theItem[4]);
 
 
+        var lineShortTitle = $("<p class='shortT'>").text(theItem[5]);  
+        var lineLongTitle = $("<p class='longT'>").text(theItem[12]);  
+        var lineDealDescription = $("<p class='dealDesc'>").text(theItem[13]);
+        var lineFinePrint = $("<p class='dealFine'>").text("Fine Print: " + theItem[10]);  
+
+        divHeader.append(headerMerchant,favHeartEmpty,favHeartFull);
+        divShortTitle.append(lineShortTitle);
+        divLongTitle.append(lineLongTitle);
+        divDealDescription.append(lineDealDescription);
+        divFinePrint.append(lineFinePrint);
+
+        $("#secondBox").append(divContainer);
+        $(".mainDealDiv").append(divHeader,divShortTitle,divLongTitle,divDealDescription,divFinePrint);
+
+        
         var merchant  = $(this).attr("data-name");
         var businessLat  = $(this).attr("data-lat");
         var businessLng  = $(this).attr("data-lng");
@@ -216,36 +214,31 @@ $("form").on("submit", function(event) {
         var userPosition = {lat: userlat, lng: userlng};
         var businessLatLng = {lat: parseFloat(businessLat), lng: parseFloat(businessLng)};
 
-        $('#firstStar').attr("data-mid",merchantId);
-        $('#firstStar').attr("data-did", dealId);
+        $('#empty-heart').attr("data-mid",merchantId);
+        $('#empty-heart').attr("data-did", dealId);
 
         initDirectionMap(userPosition,businessLatLng,'DRIVING')
 
+      $("#empty-heart").on("click", function(eventFour) {
+        eventFour.preventDefault(); 
+        $("#empty-heart").hide(); 
+        $("#full-heart").show();
+
+        firebaseTrigger();
+
+        console.log(merchantId,dealIdentifier)
+      });
 
       });
 });
 
 $("#goHome").on("click", function(eventThree) {
 
-  $("#secondBox").hide();
-  $("#firstBox").show();
-});
-
-$("#firstStar").on("click", function(eventFour) {
-  eventFour.preventDefault();
-  $("#firstStar").hide();
-  $("#secondStar").show();
-});
-
-$("#secondStar").on("click", function(eventFive) {
-  eventFive.preventDefault();
-  $("#firstStar").show();
-  $("#secondStar").hide();
-});
+  $("#secondBox").hide(); 
+  $("#firstBox").show();  
+}); 
 
 $( document ).ready(function() {
   $('#map').hide();
-  $("#secondBox").hide();
-  //initMap(items);
-  $("#secondStar").hide();
+  $("#secondBox").hide(); 
 });
