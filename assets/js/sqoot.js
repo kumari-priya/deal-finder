@@ -28,7 +28,7 @@ $("form").on("submit", function(event) {
   //Start building the elements inside the deal-table-row, including panel, and table that will contain the deal data
   var boostrapTablePanel     = $('<div class="panel panel-default" id="deal-table-panel">'),
       boostrapTablePanelBody = $('<div class="panel-body" id="deal-table-panel-body">');
-  var tableWhole = $('<table class="table" id="main-deal-table">')
+  var tableWhole = $('<table class="table table-striped" id="main-deal-table">')
   var tableHeaderRow = $('<tr id="table-header-row">')
   
   //Build the table header
@@ -89,7 +89,7 @@ $("form").on("submit", function(event) {
    
       }).done(function(response) {
       length = response.deals.length;
-      // Priya- empty the array
+      console.log(response);
       items = [];
 
 
@@ -98,16 +98,9 @@ $("form").on("submit", function(event) {
           var merchantName = response.deals[i].deal.merchant.name;
           var long = response.deals[i].deal.merchant.longitude;
           var lat = response.deals[i].deal.merchant.latitude;
-
-          console.log("Lng");
-          console.log(long);
-          console.log("Lat");
-          console.log(lat);
-
+          
           items.push([merchantName, long, lat]);
           
-          console.log(items);
-
           var dealIdentifier = response.deals[i].deal.id;
           var merchantIdentifier = response.deals[i].deal.merchant.id;
           var discount = response.deals[i].deal.discount_amount;
@@ -124,14 +117,15 @@ $("form").on("submit", function(event) {
           var state = response.deals[i].deal.merchant.region;
           var zipcode = response.deals[i].deal.merchant.postal_code;
           var merchantUrl = response.deals[i].deal.merchant.url;
+          var dealDescription = response.deals[i].deal.description;
 
           
-          info.push([address, city, state, zipcode, phone, shortTitle, merchantName]); 
+          info.push([address, city, state, zipcode, phone, shortTitle, merchantName, merchantUrl, image, expires, finePrint, price, title, dealDescription]); 
+          console.log("Deal Info:")
           console.log(info); 
 
 
           var tableRow = $('<tr class="deal-row">');
-          
 
           var tableData1 = $('<td class="details" data-mid="'+merchantIdentifier+'" data-did="'+dealIdentifier+'" data-name="'+merchantName+'" data-lng="'+long+'" data-lat="'+lat+'" data-bizaddy="'+address+'">').html('<a>'+merchantName+'</a>');          var tableData2 = $('<td>').text(title);
           var tableData2 = $('<td>').text(title);
@@ -161,6 +155,7 @@ $("form").on("submit", function(event) {
         $("#secondBox").show(); 
 
         var name  = $(this).attr("data-name");
+
         var lineOne = $("<h1>").text(name);
         var theItem
         info.forEach(item => {
@@ -168,10 +163,26 @@ $("form").on("submit", function(event) {
             theItem = item
           }
         }); 
-        console.log("===========", theItem)
 
-        var lineTwo = $("<p class='addressDisplay'>").text("a: " + theItem[0] + theItem[1] + theItem[2] + theItem[3]); 
-        var lineThree = $("<p class='phoneDisplay'>").text("p: " + theItem[4]);
+        console.log("List of Retrieved Elements:")
+        console.log(theItem);
+
+
+        var lineTwo = $("<div class='addressDisplay'>")
+
+        var lineTwoA = $("<span>").text(theItem[0]); 
+        var lineTwoB = $("<br>")
+        var lineTwoC = $("<span>").text(theItem[1] + ', ' + theItem[2] + ' ' + theItem[3]); 
+        
+        lineTwo.append(lineTwoA);
+        lineTwo.append(lineTwoB);
+        lineTwo.append(lineTwoC);
+
+
+        var lineThree = $("<p class='phoneDisplay'>").text(theItem[4]);
+        var lineFour = $("<p class='dealDisplay'>").text(theItem[5]);  
+        var lineFive = $("<p class='dealDisplay'>").text(theItem[5]);  
+        var lineDealDescription = $("<p class='dealDisplay'>").text(theItem[5]);  
         var lineFour = $("<p class='dealDisplay'>").text(theItem[5]);  
 
         $("#secondRow").append(lineTwo);
