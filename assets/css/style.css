@@ -5,8 +5,11 @@ body {
 	font-family: Roboto;
 }
 
+th {
+	font-weight: bold;
+}
 h2 {
-	font-size: 27px;
+	font-size: 23px;
 }
 
 .jumbotron {
@@ -25,22 +28,21 @@ h2 {
 .centerText {
 	text-align: center;
 }
-
-.leftpad {
-	padding-left: 50px;
-}
-
+/*.mainDealDiv {
+	height: 300px;
+}*/
 #search{
 	color: white !important;
 }
 
 .shortT {
-	font-size: 20px;
+	font-size: 18px;
 	font-style: italic;
 }
 
 .longT {
-	font-size: 18px;	
+	font-size: 15px;
+	padding-top: 5px;
 }
 .glyphicon {
     font-size: 20px !important;
@@ -50,8 +52,48 @@ h2 {
 
 .dealHeader {
 	display: flex;
+	height: 55px;
+	padding-left: 10px;
+	margin-top: -15px;
 }
 
+.shortTitleDisplay {
+	height: 35px;
+	padding-left: 10px;
+}
+
+.longTitleDisplay {
+	height: 35px;
+	padding-left: 10px;	
+}
+
+.dealDescriptionDisplay {
+	padding-left: 10px;	
+	padding-top: 15px;
+}
+
+.dealDescTitle {
+	font-weight: bolder;
+	font-size: 16px;
+}
+
+.dealDesc {
+	font-size: 14px;
+}
+
+.finePrintDisplay {
+	padding-left: 10px;
+}
 #full-heart{
 	display: none;
+}
+
+.dealFine {
+	
+	font-size: 10px;
+	bottom: 10px;
+}
+
+#map_div {
+	min-height: 300px;
 }
