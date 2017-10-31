@@ -223,9 +223,7 @@ $("form").on("submit", function(event) {
         eventFour.preventDefault(); 
         $("#empty-heart").hide(); 
         $("#full-heart").show();
-          deal = $(this).attr("data-did");
-  merchant = $(this).attr("data-mid");
-  count = 1;
+
         firebaseTrigger();
 
         console.log(merchantId,dealIdentifier)
@@ -240,14 +238,7 @@ $("#goHome").on("click", function(eventThree) {
   $("#firstBox").show();  
 }); 
 
-
 $( document ).ready(function() {
-  // $("#full-heart").hide();
   $('#map').hide();
   $("#secondBox").hide(); 
-  //initMap(items);
 });
-
-
-
-
