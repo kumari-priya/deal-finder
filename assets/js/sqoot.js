@@ -3,7 +3,7 @@ var items = [], info= [];
 var userlat, userlng, userSearch, userLocation, length, address; 
 
 
-$("#search").on("click", function(event) {
+$("form").on("submit", function(event) {
     // Prevent the page from refreshing
   event.preventDefault();
 
