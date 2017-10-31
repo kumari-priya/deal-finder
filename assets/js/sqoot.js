@@ -4,7 +4,6 @@ var userlat, userlng, userSearch, userLocation, length, address;
 
 
 $("form").on("submit", function(event) {
-    // Prevent the page from refreshing
   event.preventDefault();
 
   $('#deal-table-panel').remove();
@@ -23,7 +22,6 @@ $("form").on("submit", function(event) {
   //Set the UI input fields back to blank for the user
   $(".user-search-term").val('');
   $(".user-location").val('');
-
 
   //Start building the elements inside the deal-table-row, including panel, and table that will contain the deal data
   var boostrapTablePanel     = $('<div class="panel panel-default" id="deal-table-panel">'),
@@ -129,13 +127,15 @@ $("form").on("submit", function(event) {
 
           var tableRow = $('<tr class="deal-row">');
 
+          var tableData0 = $('<td>').text('HRT');
           var tableData1 = $('<td class="details" data-mid="'+merchantIdentifier+'" data-did="'+dealIdentifier+'" data-name="'+merchantName+'" data-lng="'+long+'" data-lat="'+lat+'" data-bizaddy="'+address+'">').html('<a>'+merchantName+'</a>');          var tableData2 = $('<td>').text(title);
           var tableData2 = $('<td>').text(title);
           var tableData3 = $('<td class="centerText">').text('$' + parseFloat(price,10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
           var tableData4 = $('<td class="centerText">').text('$' + parseFloat((price+discount),10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
           var tableData5 = $('<td class="centerText">').text('$' + parseFloat(discount,10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
         
-          tableRow.append('place');
+        //tableData0 is just a placeholder variable and can be deleted as soon as the firebase stuff is live
+          tableRow.append(tableData0);
           tableRow.append(tableData1);
           tableRow.append(tableData2);
           tableRow.append(tableData3);
@@ -175,7 +175,7 @@ $("form").on("submit", function(event) {
         var divAddress = $("<div class='addressDisplay'>");
 
         var divShortTitle = $("<div class='shortTitleDisplay'>");
-        var divLongTitle = $("<div class='longTitleDisplay'>");
+        // var divLongTitle = $("<div class='longTitleDisplay'>");
         var divDealDescription = $("<div class='dealDescriptionDisplay'>");
         var divFinePrint = $("<div class='finePrintDisplay'>");
 
@@ -192,17 +192,17 @@ $("form").on("submit", function(event) {
 
         var lineShortTitle = $("<p class='shortT'>").text(theItem[5]);  
         var lineLongTitle = $("<p class='longT'>").text(theItem[12]);  
+        var lineDealDescriptionTitle = $("<span class='dealDescTitle'>").text('Deal Details');
         var lineDealDescription = $("<p class='dealDesc'>").text(theItem[13]);
         var lineFinePrint = $("<p class='dealFine'>").text("Fine Print: " + theItem[10]);  
 
         divHeader.append(headerMerchant,favHeartEmpty,favHeartFull);
         divShortTitle.append(lineShortTitle);
-        divLongTitle.append(lineLongTitle);
-        divDealDescription.append(lineDealDescription);
+        divDealDescription.append(lineDealDescriptionTitle,lineLongTitle,lineDealDescription);
         divFinePrint.append(lineFinePrint);
 
         $("#secondBox").append(divContainer);
-        $(".mainDealDiv").append(divHeader,divShortTitle,divLongTitle,divDealDescription,divFinePrint);
+        $(".mainDealDiv").append(divHeader,divShortTitle,divDealDescription,divFinePrint);
 
         
         var merchant  = $(this).attr("data-name");
@@ -228,8 +228,7 @@ $("form").on("submit", function(event) {
 
         console.log(merchantId,dealIdentifier)
       });
-
-      });
+   });
 });
 
 $("#goHome").on("click", function(eventThree) {
@@ -237,6 +236,7 @@ $("#goHome").on("click", function(eventThree) {
   $("#secondBox").hide(); 
   $("#firstBox").show();  
 }); 
+
 
 $( document ).ready(function() {
   $('#map').hide();
