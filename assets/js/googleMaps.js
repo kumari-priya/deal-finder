@@ -1,12 +1,17 @@
+
+//Create global variable to store the latitude and longitude for the user
 var userLatLang;
+
+
+//
+
 function initMap(items) {
-  userLatLang = {lat: userlat, lng: userlng};
-  console.log(userLatLang)
-  console.log(items)
+  userLatLang = {lat: userlat, lng: userlng};  
   
-  var map = new google.maps.Map(document.getElementById('map'), {
+  var map = new google.maps.Map(document.getElementById("map_div"), {
     zoom: 11,
-    center: userLatLang
+    center: userLatLang,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
   });
   
   if(items.length>0){
@@ -23,25 +28,13 @@ function initMap(items) {
       // addMessage(marker, Tname[j][0]);
       showDirection(marker);
     }
-      $('#map').show();
+      $('#map_div').show();
   }
   else{
-      $('#map').hide();
+      $('#map_div').hide();
   }
 }
 
-  // function addMessage(marker, secretMessage) {
-  //     var infowindow = new google.maps.InfoWindow({
-  //       content: secretMessage
-  //     });
-  //
-  //     marker.addListener('click', function() {
-  //       infowindow.open(marker.get('map'), marker);
-  //       alert(marker.position);
-  //       initDirectionMap(start,marker.position,'DRIVING')
-  //     });
-  //
-  // }
 
   function showDirection(marker){
     marker.addListener('click', function() {
@@ -54,16 +47,16 @@ function initMap(items) {
   function initDirectionMap(userLatLang,bizLatLang,mode) {
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var directionsService = new google.maps.DirectionsService;
-    var map = new google.maps.Map(document.getElementById('map'), {
+    var map = new google.maps.Map(document.getElementById("map_div"), {
+      center: userLatLang,
       zoom: 14,
-      center: userLatLang
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+
     });
     directionsDisplay.setMap(map);
 
     calculateAndDisplayRoute(directionsService,directionsDisplay,userLatLang,bizLatLang,mode);
-    // document.getElementById('mode').addEventListener('change', function() {
-    //   calculateAndDisplayRoute(directionsService, directionsDisplay);
-    // });
+
   }
 
   function calculateAndDisplayRoute(directionsService, directionsDisplay,userLatLang,bizLatLang,selectedMode) {
