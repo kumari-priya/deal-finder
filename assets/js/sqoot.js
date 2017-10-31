@@ -32,7 +32,7 @@ $("form").on("submit", function(event) {
   var tableHeaderRow = $('<tr id="table-header-row">')
   
   //Build the table header
-  var tableHeader1 = $('<th>').text('Business Name');
+  var tableHeader0 = $('<th>').text('Favorite');
   var tableHeader1 = $('<th>').text('Business Name');
   var tableHeader2 = $('<th>').text('Deal');
   var tableHeader3 = $('<th class="centerText">').text('Deal Price');
@@ -47,6 +47,7 @@ $("form").on("submit", function(event) {
   $('#deal-table-panel-body').append(tableWhole);
 
   //Fill out the header row with the relevant headers, then append the header to the table
+  tableHeaderRow.append(tableHeader0);
   tableHeaderRow.append(tableHeader1);
   tableHeaderRow.append(tableHeader2);
   tableHeaderRow.append(tableHeader3);
@@ -134,7 +135,7 @@ $("form").on("submit", function(event) {
           var tableData4 = $('<td class="centerText">').text('$' + parseFloat((price+discount),10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
           var tableData5 = $('<td class="centerText">').text('$' + parseFloat(discount,10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
         
-
+          tableRow.append('place');
           tableRow.append(tableData1);
           tableRow.append(tableData2);
           tableRow.append(tableData3);
@@ -150,17 +151,18 @@ $("form").on("submit", function(event) {
     })
 
       $(document).on("click", ".details", function(eventTwo){
+        $(".mainDealDiv").empty();
+        $("#secondBox").empty();
 
-        $('#secondRow').empty();
         $("#firstBox").hide(); 
         $("#secondBox").show(); 
 
-        var name  = $(this).attr("data-name");
+        var bizName  = $(this).attr("data-name");
 
-        var lineOne = $("<h1>").text(name);
         var theItem
+
         info.forEach(item => {
-          if(item.indexOf(name) > 0){
+          if(item.indexOf(bizName) > 0){
             theItem = item
           }
         }); 
@@ -168,29 +170,41 @@ $("form").on("submit", function(event) {
         console.log("List of Retrieved Elements:")
         console.log(theItem);
 
+        var divContainer = $("<div class='mainDealDiv'>");
+        var divHeader = $("<div class='dealHeader'>");
+        var divAddress = $("<div class='addressDisplay'>");
 
-        var lineTwo = $("<div class='addressDisplay'>")
+        var divShortTitle = $("<div class='shortTitleDisplay'>");
+        var divLongTitle = $("<div class='longTitleDisplay'>");
+        var divDealDescription = $("<div class='dealDescriptionDisplay'>");
+        var divFinePrint = $("<div class='finePrintDisplay'>");
 
-        var lineTwoA = $("<span>").text(theItem[0]); 
-        var lineTwoB = $("<br>")
-        var lineTwoC = $("<span>").text(theItem[1] + ', ' + theItem[2] + ' ' + theItem[3]); 
-        
-        lineTwo.append(lineTwoA);
-        lineTwo.append(lineTwoB);
-        lineTwo.append(lineTwoC);
-
-
-        var lineThree = $("<p class='phoneDisplay'>").text(theItem[4]);
-        var lineFour = $("<p class='dealDisplay'>").text(theItem[5]);  
-        var lineFive = $("<p class='dealDisplay'>").text(theItem[5]);  
-        var lineDealDescription = $("<p class='dealDisplay'>").text(theItem[5]);  
-        var lineFour = $("<p class='dealDisplay'>").text(theItem[5]);  
-
-        $("#secondRow").append(lineTwo);
-        $("#secondRow").append(lineThree);
-        $("#secondRow").append(lineFour); 
+        var headerMerchant = $("<h2>").text(bizName);
+        var favHeartEmpty = $("<span class='glyphicon glyphicon-heart-empty' id='empty-heart'>")
+        var favHeartFull = $("<span class='glyphicon glyphicon-heart' id='full-heart'>")
         
 
+        var lineAddress1 = $("<span>").text(theItem[0]); 
+        var lineAddress2 = $("<br>")
+        var lineAddress3 = $("<span>").text(theItem[1] + ', ' + theItem[2] + ' ' + theItem[3]);    
+        var linePhone = $("<p class='phoneDisplay'>").text(theItem[4]);
+
+
+        var lineShortTitle = $("<p class='shortT'>").text(theItem[5]);  
+        var lineLongTitle = $("<p class='longT'>").text(theItem[12]);  
+        var lineDealDescription = $("<p class='dealDesc'>").text(theItem[13]);
+        var lineFinePrint = $("<p class='dealFine'>").text("Fine Print: " + theItem[10]);  
+
+        divHeader.append(headerMerchant,favHeartEmpty,favHeartFull);
+        divShortTitle.append(lineShortTitle);
+        divLongTitle.append(lineLongTitle);
+        divDealDescription.append(lineDealDescription);
+        divFinePrint.append(lineFinePrint);
+
+        $("#secondBox").append(divContainer);
+        $(".mainDealDiv").append(divHeader,divShortTitle,divLongTitle,divDealDescription,divFinePrint);
+
+        
         var merchant  = $(this).attr("data-name");
         var businessLat  = $(this).attr("data-lat");
         var businessLng  = $(this).attr("data-lng");
@@ -200,11 +214,22 @@ $("form").on("submit", function(event) {
         var userPosition = {lat: userlat, lng: userlng};
         var businessLatLng = {lat: parseFloat(businessLat), lng: parseFloat(businessLng)};
 
-        $('#firstStar').attr("data-mid",merchantId);
-        $('#firstStar').attr("data-did", dealId);
+        $('#empty-heart').attr("data-mid",merchantId);
+        $('#empty-heart').attr("data-did", dealId);
 
         initDirectionMap(userPosition,businessLatLng,'DRIVING')
 
+      $("#empty-heart").on("click", function(eventFour) {
+        eventFour.preventDefault(); 
+        $("#empty-heart").hide(); 
+        $("#full-heart").show();
+          deal = $(this).attr("data-did");
+  merchant = $(this).attr("data-mid");
+  count = 1;
+        firebaseTrigger();
+
+        console.log(merchantId,dealIdentifier)
+      });
 
       });
 });
@@ -215,23 +240,12 @@ $("#goHome").on("click", function(eventThree) {
   $("#firstBox").show();  
 }); 
 
-$("#firstStar").on("click", function(eventFour) {
-  eventFour.preventDefault(); 
-  $("#firstStar").hide(); 
-  $("#secondStar").show(); 
-});
-
-$("#secondStar").on("click", function(eventFive) {
-  eventFive.preventDefault(); 
-  $("#firstStar").show(); 
-  $("#secondStar").hide(); 
-});
 
 $( document ).ready(function() {
+  // $("#full-heart").hide();
   $('#map').hide();
   $("#secondBox").hide(); 
   //initMap(items);
-  $("#secondStar").hide(); 
 });
 
 
