@@ -28,11 +28,12 @@ $("form").on("submit", function(event) {
   //Start building the elements inside the deal-table-row, including panel, and table that will contain the deal data
   var boostrapTablePanel     = $('<div class="panel panel-default" id="deal-table-panel">'),
       boostrapTablePanelBody = $('<div class="panel-body" id="deal-table-panel-body">');
-  var tableWhole = $('<table class="table table-striped" id="main-deal-table">')
+  var tableWhole = $('<table class="table table-striped" id="main-deal-table"><tbody></tbody></table>')
   var tableHeaderRow = $('<tr id="table-header-row">')
 
   //Build the table header
   var tableHeader0 = $('<th>');
+  var tableHeader1 = $('<th>').text('Business Name');
   var tableHeader1 = $('<th>').text('Business Name');
   var tableHeader2 = $('<th>').text('Deal');
   var tableHeader3 = $('<th class="centerText">').text('Deal Price');
@@ -143,9 +144,11 @@ $("form").on("submit", function(event) {
 
           var tableData1 = $('<td class="details" data-mid="'+merchantIdentifier+'" data-did="'+dealIdentifier+'" data-name="'+merchantName+'" data-lng="'+long+'" data-lat="'+lat+'" data-bizaddy="'+address+'">').html('<a>'+merchantName+'</a>');          var tableData2 = $('<td>').text(title);
           var tableData2 = $('<td>').text(title);
-          var tableData3 = $('<td class="centerText">').text(price);
-          var tableData4 = $('<td class="centerText">').text(discount+price);
-          var tableData5 = $('<td class="centerText">').text(discount);
+
+          var tableData3 = $('<td class="centerText">').text('$' + parseFloat(price,10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
+          var tableData4 = $('<td class="centerText">').text('$' + parseFloat((price+discount),10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
+          var tableData5 = $('<td class="centerText">').text('$' + parseFloat(discount,10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
+
 
           tableRow.append(tableData0)
           tableRow.append(tableData1);
