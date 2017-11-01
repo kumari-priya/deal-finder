@@ -97,3 +97,8 @@ h2 {
 #map_div {
 	min-height: 300px;
 }
+
+.addressDisplay{
+	padding-left: 10px; 
+}
+

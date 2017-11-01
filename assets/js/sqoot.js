@@ -198,6 +198,7 @@ $("form").on("submit", function(event) {
         var lineAddress2 = $("<br>")
         var lineAddress3 = $("<span>").text(theItem[1] + ', ' + theItem[2] + ' ' + theItem[3]);
         var linePhone = $("<p class='phoneDisplay'>").text(theItem[4]);
+        
 
 
         var lineShortTitle = $("<p class='shortT'>").text(theItem[5]);
@@ -210,9 +211,10 @@ $("form").on("submit", function(event) {
         divShortTitle.append(lineShortTitle);
         divDealDescription.append(lineDealDescriptionTitle,lineLongTitle,lineDealDescription);
         divFinePrint.append(lineFinePrint);
+        divAddress.append(lineAddress1, lineAddress2, lineAddress3, lineAddress4); 
 
         $("#secondBox").append(divContainer);
-        $(".mainDealDiv").append(divHeader,divShortTitle,divDealDescription,divFinePrint);
+        $(".mainDealDiv").append(divHeader, divAddress, divShortTitle,divDealDescription,divFinePrint);
 
 
         var merchant  = $(this).attr("data-name");
