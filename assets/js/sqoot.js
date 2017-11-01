@@ -1,13 +1,13 @@
 var mainDealDisplay = [];
 var items = [], info= [];
-var userlat, userlng, userSearch, userLocation, length, address; 
+var userlat, userlng, userSearch, userLocation, length, address;
 
 
 $("form").on("submit", function(event) {
   event.preventDefault();
 
   $('#deal-table-panel').remove();
-    
+
   //Get items from input form and assign them to global variables
   userSearch = $(".user-search-term").val().trim();
   userLocation = $(".user-location").val().trim();
@@ -28,13 +28,13 @@ $("form").on("submit", function(event) {
       boostrapTablePanelBody = $('<div class="panel-body" id="deal-table-panel-body">');
   var tableWhole = $('<table class="table table-striped" id="main-deal-table"><tbody></tbody></table>')
   var tableHeaderRow = $('<tr id="table-header-row">')
-  
+
   //Build the table header
   var tableHeader0 = $('<th>').text('Favorite');
   var tableHeader1 = $('<th>').text('Business Name');
   var tableHeader2 = $('<th>').text('Deal');
   var tableHeader3 = $('<th class="centerText">').text('Deal Price');
-  var tableHeader4 = $('<th class="centerText">').text('Original Value');  
+  var tableHeader4 = $('<th class="centerText">').text('Original Value');
   var tableHeader5 = $('<th class="centerText">').text('Discount');
 
   //Append the table panel to the deal-table-row that is on the index page to hold the table
@@ -81,12 +81,12 @@ $("form").on("submit", function(event) {
   //This will be retrieved using the sqoot API
   var baseUrl = "https://api.sqoot.com/v2/deals?api_key=6robp6"
   var queryUrl = baseUrl + '&query='+ userSearch + '&location=' + userLocation + '&per_page=' + results + '&online=' + webResults;
- 
+
   $.ajax({
       url: queryUrl,
       method: "GET",
       dataType: "jsonp"
-   
+
       }).done(function(response) {
       length = response.deals.length;
       console.log(response);
@@ -98,9 +98,9 @@ $("form").on("submit", function(event) {
           var merchantName = response.deals[i].deal.merchant.name;
           var long = response.deals[i].deal.merchant.longitude;
           var lat = response.deals[i].deal.merchant.latitude;
-          
+
           items.push([merchantName, long, lat]);
-          
+
           var dealIdentifier = response.deals[i].deal.id;
           var merchantIdentifier = response.deals[i].deal.merchant.id;
           var discount = response.deals[i].deal.discount_amount;
@@ -119,21 +119,31 @@ $("form").on("submit", function(event) {
           var merchantUrl = response.deals[i].deal.merchant.url;
           var dealDescription = response.deals[i].deal.description;
 
-          
-          info.push([address, city, state, zipcode, phone, shortTitle, merchantName, merchantUrl, image, expires, finePrint, price, title, dealDescription]); 
+
+          info.push([address, city, state, zipcode, phone, shortTitle, merchantName, merchantUrl, image, expires, finePrint, price, title, dealDescription]);
           console.log("Deal Info:")
-          console.log(info); 
+          console.log(info);
 
 
           var tableRow = $('<tr class="deal-row">');
+          // Check for fevourite
+          var tableData0;
+          if(checkFev(favItems,dealIdentifier)){
+            var tableData0 = $('<td style= "position: relative;"><span class="glyphicon glyphicon-heart" style="position: absolute; top: 10px; left: 15px;"></span></td>');
+          }
+          else{
+            //hide star
+            tableData0 = $('<td></td>');
+          }
 
-          var tableData0 = $('<td>').text('HRT');
-          var tableData1 = $('<td class="details" data-mid="'+merchantIdentifier+'" data-did="'+dealIdentifier+'" data-name="'+merchantName+'" data-lng="'+long+'" data-lat="'+lat+'" data-bizaddy="'+address+'">').html('<a>'+merchantName+'</a>');          var tableData2 = $('<td>').text(title);
+
+          var tableData1 = $('<td class="details" data-mid="'+merchantIdentifier+'" data-did="'+dealIdentifier+'" data-name="'+merchantName+'" data-lng="'+long+'" data-lat="'+lat+'" data-bizaddy="'+address+'">').html('<a>'+merchantName+'</a>');
+                    // var tableData2 = $('<td>').text(title);
           var tableData2 = $('<td>').text(title);
           var tableData3 = $('<td class="centerText">').text('$' + parseFloat(price,10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
           var tableData4 = $('<td class="centerText">').text('$' + parseFloat((price+discount),10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
           var tableData5 = $('<td class="centerText">').text('$' + parseFloat(discount,10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
-        
+
         //tableData0 is just a placeholder variable and can be deleted as soon as the firebase stuff is live
           tableRow.append(tableData0);
           tableRow.append(tableData1);
@@ -141,7 +151,7 @@ $("form").on("submit", function(event) {
           tableRow.append(tableData3);
           tableRow.append(tableData4);
           tableRow.append(tableData5);
-        
+
           $('#main-deal-table').append(tableRow);
 
 
@@ -154,8 +164,8 @@ $("form").on("submit", function(event) {
         $(".mainDealDiv").empty();
         $("#secondBox").empty();
 
-        $("#firstBox").hide(); 
-        $("#secondBox").show(); 
+        $("#firstBox").hide();
+        $("#secondBox").show();
 
         var bizName  = $(this).attr("data-name");
 
@@ -165,7 +175,7 @@ $("form").on("submit", function(event) {
           if(item.indexOf(bizName) > 0){
             theItem = item
           }
-        }); 
+        });
 
         console.log("List of Retrieved Elements:")
         console.log(theItem);
@@ -182,19 +192,19 @@ $("form").on("submit", function(event) {
         var headerMerchant = $("<h2>").text(bizName);
         var favHeartEmpty = $("<span class='glyphicon glyphicon-heart-empty' id='empty-heart'>")
         var favHeartFull = $("<span class='glyphicon glyphicon-heart' id='full-heart'>")
-        
 
-        var lineAddress1 = $("<span>").text(theItem[0]); 
+
+        var lineAddress1 = $("<span>").text(theItem[0]);
         var lineAddress2 = $("<br>")
-        var lineAddress3 = $("<span>").text(theItem[1] + ', ' + theItem[2] + ' ' + theItem[3]);    
+        var lineAddress3 = $("<span>").text(theItem[1] + ', ' + theItem[2] + ' ' + theItem[3]);
         var linePhone = $("<p class='phoneDisplay'>").text(theItem[4]);
 
 
-        var lineShortTitle = $("<p class='shortT'>").text(theItem[5]);  
-        var lineLongTitle = $("<p class='longT'>").text(theItem[12]);  
+        var lineShortTitle = $("<p class='shortT'>").text(theItem[5]);
+        var lineLongTitle = $("<p class='longT'>").text(theItem[12]);
         var lineDealDescriptionTitle = $("<span class='dealDescTitle'>").text('Deal Details');
         var lineDealDescription = $("<p class='dealDesc'>").text(theItem[13]);
-        var lineFinePrint = $("<p class='dealFine'>").text("Fine Print: " + theItem[10]);  
+        var lineFinePrint = $("<p class='dealFine'>").text("Fine Print: " + theItem[10]);
 
         divHeader.append(headerMerchant,favHeartEmpty,favHeartFull);
         divShortTitle.append(lineShortTitle);
@@ -204,7 +214,7 @@ $("form").on("submit", function(event) {
         $("#secondBox").append(divContainer);
         $(".mainDealDiv").append(divHeader,divShortTitle,divDealDescription,divFinePrint);
 
-        
+
         var merchant  = $(this).attr("data-name");
         var businessLat  = $(this).attr("data-lat");
         var businessLng  = $(this).attr("data-lng");
@@ -220,25 +230,25 @@ $("form").on("submit", function(event) {
         initDirectionMap(userPosition,businessLatLng,'DRIVING')
 
       $("#empty-heart").on("click", function(eventFour) {
-        eventFour.preventDefault(); 
-        $("#empty-heart").hide(); 
+        eventFour.preventDefault();
+        $("#empty-heart").hide();
         $("#full-heart").show();
+        // Update Firebase data
+        updateFav(dealId,merchantId);
 
-        firebaseTrigger();
-
-        console.log(merchantId,dealIdentifier)
+        // console.log(merchantId,dealIdentifier)
       });
    });
 });
 
 $("#goHome").on("click", function(eventThree) {
 
-  $("#secondBox").hide(); 
-  $("#firstBox").show();  
-}); 
+  $("#secondBox").hide();
+  $("#firstBox").show();
+});
 
 
 $( document ).ready(function() {
   $('#map').hide();
-  $("#secondBox").hide(); 
+  $("#secondBox").hide();
 });
