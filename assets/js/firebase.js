@@ -42,17 +42,26 @@ fireBaseFav = snapshot.val();
     }
 
 
-$("#firstStar").on("click", function() {
-  event.preventDefault();
-  deal = $(this).attr("data-did");
-  merchant = $(this).attr("data-mid");
-  count = 1;
-  console.log(deal,merchant);
+// $("#firstStar").on("click", function() {
+//   event.preventDefault();
+//   deal = $(this).attr("data-did");
+//   merchant = $(this).attr("data-mid");
+//   count = 1;
+//   console.log(deal,merchant);
+//
+//
+// // Insert/Update data in firebase
+//     database.ref('favs/' + deal).set({
+//       merchantId: merchant,
+//       favCount: count
+//     });
+// });
 
-
-// Insert/Update data in firebase
-    database.ref('favs/' + deal).set({
-      merchantId: merchant,
-      favCount: count
-    });
-});
+function updateFav(deal,merchant){
+  console.log("Firebase updated");
+  var count = 1;
+  database.ref('favs/' + deal).set({
+    merchantId: merchant,
+    favCount: count
+  });
+}
