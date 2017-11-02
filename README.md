@@ -2,7 +2,7 @@ Synopsis
 
 The deal finder site utilizes Sqoot API and Google Maps APIs to show a user all deals in the search category that are relevant to their search location.
 
-Team Members
+Contributers
 
 Abhishek Nanduri
 ananduri92@gmail.com
@@ -17,17 +17,26 @@ Priya Kumari
 priya@goel.pw
 
 
-Code Example
+Location
+https://kumari-priya.github.io/project1/
 
-Show what the library does as concisely as possible, developers should be able to figure out how your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
-
-Motivation
-
-A short description of the motivation behind the creation and maintenance of the project. This should explain why the project exists.
-
-Installation
-
-Provide code examples and explanations of how to get the project.
+Application Data Flow
+1. User enters in search term (category of deal they want to find)
+2. User starts typing in location and the Google places autocomplete API senses the user input, then provides suggestions on locations that match the user's input characters.
+3. User selects a location from autocomplete suggestions or finishes typing in the location manually.
+4. User presses SEARCH button when both fields are successfully filled, standard browser form validation is employed to warn the user that fields need to be filled out before proceeding if the user presses search before both fields are filled.
+4. Search button is connected to an On-Click function that will kick off the following:
+    a) User location (address) is submitted to Geolocation to get latitude & longitude
+    b) User address and search term are submitted to the Sqoot API to retrieve deals based on those parameters
+5. Sqoot API request sent using AJAX and response is parsed into two array, one called 'items' that contains information about the latitude and longitude for all th merchants contained in the response and one called 'xxx' that contains all the relevant detailed information about the deal (deal description, discount amount, original value, merchant name, etc).
+6. Google Maps API request is made containing the user's latitude and longitude (var userLatLng) and the items array from Sqoot to display a map centered on the user's input geolocation and a set of markers illustrating the deal merchants location.
+    Sample Array
+    userLatLng [{userLat, userLn}]
+    items = [{merchantName1, merchantLatitude1, merchantLongitude1}, {merchantName2, merchantLatitude2, merchantLongitude2}]
+7. User can see the relevant deals from their request in a deals summary table (created using JQuery within the AJAX response)
+8. User can click on the merchant name in the deals summary table and the top input form box will be replaced with a view displaying deal details.
+9. User will see a map to the right of the deal details showing a marker indicating the user's location, a marker indicating the merchant's location, and directions between the two.
+10. User can click on the heart icon next to the merchant name in the detailed deals view and that deal will be saved in Firebase as a favorite deal
 
 API References
 
@@ -46,16 +55,4 @@ https://developers.google.com/maps/documentation/geolocation/intro
 Google Places Autocomplete
 https://developers.google.com/maps/documentation/javascript/places-autocomplete
 
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
 
-Tests
-
-Describe and show how to run the tests with code examples.
-
-Contributors
-
-Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
-
-License
-
-A short snippet describing the license (MIT, Apache, etc.)
