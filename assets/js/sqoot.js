@@ -211,10 +211,10 @@ $("form").on("submit", function(event) {
         divShortTitle.append(lineShortTitle);
         divDealDescription.append(lineDealDescriptionTitle,lineLongTitle,lineDealDescription);
         divFinePrint.append(lineFinePrint);
-        divAddress.append(lineAddress1, lineAddress2, lineAddress3, lineAddress4); 
+        // divAddress.append(lineAddress1, lineAddress2, lineAddress3, lineAddress4); 
 
         $("#secondBox").append(divContainer);
-        $(".mainDealDiv").append(divHeader, divAddress, divShortTitle,divDealDescription,divFinePrint);
+        $(".mainDealDiv").append(divHeader, divShortTitle,divDealDescription,divFinePrint);
 
 
         var merchant  = $(this).attr("data-name");
