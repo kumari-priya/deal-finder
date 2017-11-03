@@ -21,18 +21,12 @@ Location
 ---
 https://kumari-priya.github.io/project1/
 
-Images
----
-![Alt text](/assets/img/Group_Project_Home.png?raw=true "Home Screen")
-![Alt text](/assets/img/Group_Project_Autocomplete.png?raw=true "Autocomplete")
-![Alt text](/assets/img/Group_Project_SearchResults.png?raw=true "Main Deals Table")
-![Alt text](/assets/img/Group_Project_DetailView1.png?raw=true "Deals Detailed View 1")
-![Alt text](/assets/img/Group_Project_DetailView2.png?raw=true "Deals Detailed View 2")
-
 Application Data Flow
 ---
 1. User enters in search term (category of deal they want to find)
+![Alt text](/assets/img/Group_Project_Home.png?raw=true "Home Screen")
 2. User starts typing in location and the Google places autocomplete API senses the user input, then provides suggestions on locations that match the user's input characters.
+![Alt text](/assets/img/Group_Project_Autocomplete.png?raw=true "Autocomplete")
 3. User selects a location from autocomplete suggestions or finishes typing in the location manually.
 4. User presses SEARCH button when both fields are successfully filled, standard browser form validation is employed to warn the user that fields need to be filled out before proceeding if the user presses search before both fields are filled.
 4. Search button is connected to an On-Click function that will kick off the following:
@@ -44,11 +38,15 @@ Application Data Flow
     userLatLng [{userLat, userLn}]
     items = [{merchantName1, merchantLatitude1, merchantLongitude1}, {merchantName2, merchantLatitude2, merchantLongitude2}]
 7. User can see the relevant deals from their request in a deals summary table (created using JQuery within the AJAX response)
+![Alt text](/assets/img/Group_Project_SearchResults.png?raw=true "Main Deals Table")
 8. User can click on the merchant name in the deals summary table and the top input form box will be replaced with a view displaying deal details.
+![Alt text](/assets/img/Group_Project_DetailView1.png?raw=true "Deals Detailed View 1")
+![Alt text](/assets/img/Group_Project_DetailView2.png?raw=true "Deals Detailed View 2")
 9. User will see a map to the right of the deal details showing a marker indicating the user's location, a marker indicating the merchant's location, and directions between the two.
 10. User can click on the heart icon next to the merchant name in the detailed deals view and that deal will be saved in Firebase as a favorite deal
+![Alt text](/assets/img/Group_Project_Favorited.png?raw=true "Click the Heart to Save a Favorite Deal")
 
-
+Application is mobile responsive:
 ![Alt text](/assets/img/DealFinder_Responsive.png?raw=true "Responsive")
 
 
