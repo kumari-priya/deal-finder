@@ -40,6 +40,10 @@ Application Data Flow
 9. User will see a map to the right of the deal details showing a marker indicating the user's location, a marker indicating the merchant's location, and directions between the two.
 10. User can click on the heart icon next to the merchant name in the detailed deals view and that deal will be saved in Firebase as a favorite deal
 
+
+![Alt text](/assets/img/DealFinder_Responsive.png?raw=true "Responsive")
+
+
 API References
 ---
 
