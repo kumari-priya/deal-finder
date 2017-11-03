@@ -23,10 +23,11 @@ https://kumari-priya.github.io/project1/
 
 Images
 ---
-![Alt text](/assets/img/DealFinder_Responsive.png?raw=true "Home Screen")
-![Alt text](/assets/img/DealFinder_Responsive.png?raw=true "Autocomplete")
-![Alt text](/assets/img/DealFinder_Responsive.png?raw=true "Main Deals Table")
-![Alt text](/assets/img/DealFinder_Responsive.png?raw=true "Deals Detailed Table")
+![Alt text](/assets/img/Group_Project_Home.png?raw=true "Home Screen")
+![Alt text](/assets/img/Group_Project_Autocomplete.png?raw=true "Autocomplete")
+![Alt text](/assets/img/Group_Project_SearchResults.png?raw=true "Main Deals Table")
+![Alt text](/assets/img/Group_Project_DetailView1.png?raw=true "Deals Detailed View 1")
+![Alt text](/assets/img/Group_Project_DetailView2.png?raw=true "Deals Detailed View 2")
 
 Application Data Flow
 ---
