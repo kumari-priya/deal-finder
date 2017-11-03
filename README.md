@@ -29,6 +29,7 @@ Application Data Flow
 ![Alt text](/assets/img/Group_Project_Autocomplete.png?raw=true "Autocomplete")
 3. User selects a location from autocomplete suggestions or finishes typing in the location manually.
 4. User presses SEARCH button when both fields are successfully filled, standard browser form validation is employed to warn the user that fields need to be filled out before proceeding if the user presses search before both fields are filled.
+![Alt text](/assets/img/Group_Project_Search.png?raw=true "Ready to Search")
 4. Search button is connected to an On-Click function that will kick off the following:
     a) User location (address) is submitted to Geolocation to get latitude & longitude
     b) User address and search term are submitted to the Sqoot API to retrieve deals based on those parameters
