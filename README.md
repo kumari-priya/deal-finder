@@ -21,6 +21,13 @@ Location
 ---
 https://kumari-priya.github.io/project1/
 
+Images
+---
+![Alt text](/assets/img/DealFinder_Responsive.png?raw=true "Home Screen")
+![Alt text](/assets/img/DealFinder_Responsive.png?raw=true "Autocomplete")
+![Alt text](/assets/img/DealFinder_Responsive.png?raw=true "Main Deals Table")
+![Alt text](/assets/img/DealFinder_Responsive.png?raw=true "Deals Detailed Table")
+
 Application Data Flow
 ---
 1. User enters in search term (category of deal they want to find)
