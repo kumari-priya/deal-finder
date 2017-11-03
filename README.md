@@ -42,8 +42,8 @@ Application Data Flow
 ![Alt text](/assets/img/Group_Project_SearchResults.png?raw=true "Main Deals Table")
 8. User can click on the merchant name in the deals summary table and the top input form box will be replaced with a view displaying deal details.
 ![Alt text](/assets/img/Group_Project_DetailView1.png?raw=true "Deals Detailed View 1")
-![Alt text](/assets/img/Group_Project_DetailView2.png?raw=true "Deals Detailed View 2")
 9. User will see a map to the right of the deal details showing a marker indicating the user's location, a marker indicating the merchant's location, and directions between the two.
+![Alt text](/assets/img/Group_Project_DetailView2.png?raw=true "Deals Detailed View 2")
 10. User can click on the heart icon next to the merchant name in the detailed deals view and that deal will be saved in Firebase as a favorite deal
 ![Alt text](/assets/img/Group_Project_Favorited.png?raw=true "Click the Heart to Save a Favorite Deal")
 
