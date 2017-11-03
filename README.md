@@ -5,19 +5,15 @@ The deal finder site utilizes Sqoot API and Google Maps APIs to show a user all 
 Contributers
 ---
 Abhishek Nanduri
-
 ananduri92@gmail.com
 
 Amy Slover
-
 amykslover@gmail.com
 
 Sameen Babar
-
 sameen63@gmail.com
 
 Priya Kumari
-
 priya@goel.pw
 
 
