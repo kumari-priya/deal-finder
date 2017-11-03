@@ -1,9 +1,9 @@
 Synopsis
-
+---
 The deal finder site utilizes Sqoot API and Google Maps APIs to show a user all deals in the search category that are relevant to their search location.
 
 Contributers
-
+---
 Abhishek Nanduri
 ananduri92@gmail.com
 
@@ -18,9 +18,11 @@ priya@goel.pw
 
 
 Location
+---
 https://kumari-priya.github.io/project1/
 
 Application Data Flow
+---
 1. User enters in search term (category of deal they want to find)
 2. User starts typing in location and the Google places autocomplete API senses the user input, then provides suggestions on locations that match the user's input characters.
 3. User selects a location from autocomplete suggestions or finishes typing in the location manually.
@@ -39,6 +41,7 @@ Application Data Flow
 10. User can click on the heart icon next to the merchant name in the detailed deals view and that deal will be saved in Firebase as a favorite deal
 
 API References
+---
 
 Sqoot Deals API
 http://docs.sqoot.com/v2/deals.html
