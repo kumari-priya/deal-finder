@@ -1,3 +1,6 @@
+Edited for pull request
+---
+
 Synopsis
 ---
 The deal finder site utilizes Sqoot API and Google Maps APIs to show a user all deals in the search category that are relevant to their search location.
@@ -68,5 +71,3 @@ https://developers.google.com/maps/documentation/geolocation/intro
 
 Google Places Autocomplete
 https://developers.google.com/maps/documentation/javascript/places-autocomplete
-
-
